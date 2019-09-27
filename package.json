@@ -1,0 +1,23 @@
+{
+  "name": "@ilb/node_context",
+  "version": "1.0.1",
+  "description": "",
+  "author": "github@bystrobank.ru",
+  "license": "ISC",
+  "main": "src/context.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nbignore": "mkdir -p node_modules && touch node_modules/.nbignore",
+    "versionpatch": "npm version patch"
+  },
+  "browser": {
+    "fs": false
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27"
+  }
+}
