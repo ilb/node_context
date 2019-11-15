@@ -4,8 +4,9 @@
   "description": "",
   "author": "github@bystrobank.ru",
   "license": "ISC",
-  "main": "src/context.js",
+  "main": "lib/context.js",
   "scripts": {
+    "build": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nbignore": "mkdir -p node_modules && touch node_modules/.nbignore",
     "versionpatch": "npm version patch"
@@ -14,10 +15,17 @@
     "fs": false
   },
   "files": [
-    "src"
+    "lib"
   ],
   "dependencies": {
     "xmldom": "^0.1.27",
     "xpath": "0.0.27"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.9.0",
+    "babel-preset-es2015": "^6.24.1",
+    "jest": "^24.9.0",
+    "regenerator-runtime": "^0.13.3"
   }
 }
