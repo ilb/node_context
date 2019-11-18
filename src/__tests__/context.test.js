@@ -1,6 +1,8 @@
-var context = require('../context');
+//var context = require('../context');
 
-//import context from '../context';
+
+import context from '../context';
+
 const fs = require('fs');
 const path = require('path');
 
