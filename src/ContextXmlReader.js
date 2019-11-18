@@ -1,5 +1,8 @@
-class ContextXmlReader {
+import PropertyReader from './PropertyReader';
+
+class ContextXmlReader extends PropertyReader {
     constructor(url) {
+        super();
         this.url = url;
     }
 

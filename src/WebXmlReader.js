@@ -1,5 +1,8 @@
-class WebXmlReader {
+import PropertyReader from './PropertyReader';
+
+class WebXmlReader extends PropertyReader {
     constructor(url) {
+        super();
         this.url = url;
     }
 
