@@ -11,11 +11,10 @@ function config(opts) {
         let contextobj = {};
         if (fs.existsSync(contextPath)) {
             const contextxml = fs.readFileSync(contextPath, 'utf8');
-            contextobj = parseContextXml(contextxml);
+            contextobj = this.parseContextXml(contextxml);
             if (opts.debug) {
                 console.log("contextobj: " + JSON.stringify(contextobj));
             }
-
         }
 
         let webobj = {};
@@ -26,17 +25,16 @@ function config(opts) {
 
         if (fs.existsSync(webxmlPath)) {
             const webxml = fs.readFileSync(webxmlPath, 'utf8');
-            webobj = parseWebXml(webxml);
+            webobj = this.parseWebXml(webxml);
             if (opts.debug) {
                 console.log("webobj: " + JSON.stringify(webobj));
             }
-
         }
 
         putEnv(webobj, contextobj);
 
         // Parses context.xml src into an Object
-        function parseContextXml(src) {
+        this.parseContextXml = function (src) {
             const obj = {};
             const doc = new DOMParser().parseFromString(src.toString());
             xpath.select('//Environment', doc).forEach(function (node, idx) {
@@ -48,10 +46,10 @@ function config(opts) {
         }
 
         // Parses web.xml src into an Object
-        function parseWebXml(src) {
+        this.parseWebXml = function (src) {
             const obj = {};
             const doc = new DOMParser().parseFromString(src.toString());
-            var select = xpath.useNamespaces({"j2ee": "http://java.sun.com/xml/ns/j2ee"});
+            var select = xpath.useNamespaces({ "j2ee": "http://java.sun.com/xml/ns/j2ee" });
 
             select('//j2ee:env-entry', doc).forEach(function (node, idx) {
                 const key = select('j2ee:env-entry-name', node)[0].firstChild.data;
@@ -62,17 +60,14 @@ function config(opts) {
             return obj;
         }
 
-
-        function putEnv(webobj, contextobj) {
+        this.putEnv = function (webobj, contextobj) {
             Object.keys(webobj).forEach(function (key) {
                 const value = contextobj[key] ? contextobj[key] : webobj[key];
                 process.env[key] = value;
                 if (opts.debug) {
                     console.log("putEnv: " + key + " = " + value);
                 }
-
             });
-
         }
     }
 }
