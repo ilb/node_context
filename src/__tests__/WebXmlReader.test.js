@@ -14,3 +14,8 @@ const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/b
 test('parses context.xml', () => {
     expect(wxr.getValues()).resolves.toStrictEqual(expected);
 });
+
+test('has own property', async () => {
+    const values = await wxr.getValues();
+    expect(values.hasOwnProperty('ru.bystrobank.apps.workflow.cert_PASSWORD')).toBe(true);
+});

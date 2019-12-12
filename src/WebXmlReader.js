@@ -6,7 +6,6 @@ class WebXmlReader extends PropertyReader {
         super();
         this.src = src;
         this.values = null;
-
     }
     static async parse(src) {
         var xml2js = require('xml2js-es6-promise');
@@ -44,7 +43,6 @@ class WebXmlReader extends PropertyReader {
         }
         const value = ValueParser.parseValue(type, rawValue);
         return {name, value};
-
     }
 
     async getValues() {

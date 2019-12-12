@@ -10,5 +10,5 @@ const expected = {
     "ru.bystrobank.apps.workflow.cert_PASSWORD": "cert_pass_here"
 };
 test('parses context.xml', () => {
-    expect(cxr.getValues()).toStrictEqual(expected);
+    expect(cxr.getValues()).resolves.toStrictEqual(expected);
 });
