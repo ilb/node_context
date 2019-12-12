@@ -8,14 +8,14 @@ const ldapConfig = new LDAPConfig(ldapConfPath);
 
 const expectedConfig = {BASE: 'dc=example,dc=com',
     TLS_CACERT: "/etc/ssl/certs/ourCAbundle.crt",
-    URI: 'ldapi:/// ldap://ldap.example.com ldaps://ldap-master.example.com:666'};
+    URI: 'ldapi:/// ldaps://devel.net.ilb.ru ldaps://ldap.net.ilb.ru ldaps://ldap2.net.ilb.ru'};
 
 test('parseConfig', () => {
     expect(LDAPConfig.parseConfig(ldapConfPath)).toStrictEqual(expectedConfig);
 });
 
 
-const expectedUri = ['ldap://ldap.example.com', 'ldaps://ldap-master.example.com:666'];
+const expectedUri = ['ldaps://devel.net.ilb.ru', 'ldaps://ldap.net.ilb.ru', 'ldaps://ldap2.net.ilb.ru'];
 
 test('getLdapUri', () => {
     expect(ldapConfig.getLdapUri()).toStrictEqual(expectedUri);
