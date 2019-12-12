@@ -6,8 +6,8 @@ export default class LDAPConfig {
         this.caCert = null;
     }
 
-    getLdapUri() {
-        return this.ldapUri;
+    getUri() {
+        return this.uri;
     }
 
     getBase() {

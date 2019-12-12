@@ -12,7 +12,7 @@ export default class OpenLDAPConfig extends LDAPConfig{
     loadValuesFromConfig() {
         const config = OpenLDAPConfig.parseConfig(this.configPath);
         if (config.URI) {
-            this.ldapUri = config.URI.split(/\s+/).filter(l => l.match(this.ldapSchemasRegexp));
+            this.uri = config.URI.split(/\s+/).filter(l => l.match(this.ldapSchemasRegexp));
         }
         this.base = config.BASE || null;
         this.caCert = config.TLS_CACERT || null;

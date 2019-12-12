@@ -17,8 +17,8 @@ test('parseConfig', () => {
 
 const expectedUri = ['ldaps://devel.net.ilb.ru', 'ldaps://ldap.net.ilb.ru', 'ldaps://ldap2.net.ilb.ru'];
 
-test('getLdapUri', () => {
-    expect(ldapConfig.getLdapUri()).toStrictEqual(expectedUri);
+test('getUri', () => {
+    expect(ldapConfig.getUri()).toStrictEqual(expectedUri);
 });
 
 
