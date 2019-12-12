@@ -1,6 +1,6 @@
 export default class PropertyReader {
 
-    getValues() {
+    async getValues() {
         return {};
     }
 }
