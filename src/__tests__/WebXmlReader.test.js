@@ -12,5 +12,5 @@ const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/b
 };
 
 test('parses context.xml', () => {
-    expect(wxr.getValues()).toStrictEqual(expected);
+    expect(wxr.getValues()).resolves.toStrictEqual(expected);
 });

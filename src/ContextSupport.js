@@ -13,13 +13,14 @@ class ContextSupport {
      * context.xml values have higher priority
      * @returns {undefined}
      */
-    buildContext() {
+    async buildContext() {
         const fs = require('fs');
         const context = {}
         if (this.webXmlPath && fs.existsSync(this.webXmlPath)) {
             const webxml = fs.readFileSync(this.webXmlPath, 'utf8');
             const wxr = new WebXmlReader(webxml);
-            Object.assign(context, wxr.getValues());
+            const values = await wxr.getValues();
+            Object.assign(context, values);
         }
         if (this.contextXmlPath && fs.existsSync(this.contextXmlPath)) {
             const contextXml = fs.readFileSync(this.contextXmlPath, 'utf8');

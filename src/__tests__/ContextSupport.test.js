@@ -13,5 +13,5 @@ const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/b
 };
 
 test('builds context', () => {
-    expect(cs.buildContext()).toStrictEqual(expected);
+    expect(cs.buildContext()).resolves.toStrictEqual(expected);
 });

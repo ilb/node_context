@@ -3,6 +3,7 @@
     <env-entry>
         <description>база данных откуда берем данные</description>
         <env-entry-name>ru.bystrobank.apps.bailverification.db</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>mysql://localhost/bailverification</env-entry-value>
     </env-entry>
     <env-entry>
