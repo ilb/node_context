@@ -1,6 +1,10 @@
-class ContextSupport {
-    constructor(webXmlUrl, contextXmlUrl) {
+import WebXmlReader from './WebXmlReader';
 
+class ContextSupport {
+
+    constructor(webXmlPath, contextXmlPath) {
+        this.webXmlPath = webXmlPath;
+        this.contextXmlPath = contextXmlPath;
     }
 
     /**
@@ -9,7 +13,16 @@ class ContextSupport {
      * @returns {undefined}
      */
     buildContext() {
-
+        const fs = require('fs');
+        const context = {}
+        if (this.webXmlPath && fs.existsSync(this.webXmlPath)) {
+            const webxml = fs.readFileSync(this.webXmlPath, 'utf8');
+            const wxr = new WebXmlReader(webxml);
+            Object.assign(context, wxr.getValues());
+        }
+        return context;
     }
 
 }
+
+export default ContextSupport;
