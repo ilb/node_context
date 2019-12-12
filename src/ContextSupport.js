@@ -22,10 +22,12 @@ class ContextSupport {
             const values = await wxr.getValues();
             Object.assign(context, values);
         }
+
         if (this.contextXmlPath && fs.existsSync(this.contextXmlPath)) {
             const contextXml = fs.readFileSync(this.contextXmlPath, 'utf8');
             const cxr = new ContextXmlReader(contextXml);
-            ContextSupport.assignExisting(context, cxr.getValues());
+            const values = await cxr.getValues();
+            ContextSupport.assignExisting(context, values);
         }
 
         return context;
