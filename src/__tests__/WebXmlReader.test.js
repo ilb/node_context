@@ -1,8 +1,10 @@
 import WebXmlReader from '../WebXmlReader';
 import * as path from 'path';
 
+const fs = require('fs');
 const contextPath = path.resolve('src/__tests__/web.xml');
-const wxr = new WebXmlReader(contextPath);
+
+const wxr = new WebXmlReader(fs.readFileSync(contextPath));
 
 const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/bailverification",
     "ru.bystrobank.apps.bailverification.db_PASSWORD": null,
