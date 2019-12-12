@@ -7,24 +7,66 @@ class WebXmlReader extends PropertyReader {
         this.values = null;
 
     }
-    static parse(src) {
-        const DOMParser = require('xmldom').DOMParser;
-        const xpath = require('xpath');
+    static async parse(src) {
+        var xml2js = require('xml2js-es6-promise');
 
-        const values = {};
-        const doc = new DOMParser().parseFromString(src.toString());
-        var select = xpath.useNamespaces({"j2ee": "http://java.sun.com/xml/ns/j2ee"});
+        const sourceConfig = await xml2js(src);
 
-        select('//j2ee:env-entry', doc).forEach(function (node, idx) {
-            const key = select('j2ee:env-entry-name', node)[0].firstChild.data;
-            const valnodelist = select('j2ee:env-entry-value', node);
-            const val = valnodelist.length > 0 ? valnodelist[0].firstChild.data : null;
-            values[key] = val;
-        });
-        return values;
+        if (!sourceConfig['web-app']) {
+            throw new Error(`web.xml should contain web-app node`);
+        }
+        const parsedConfig = {};
+        if (sourceConfig['web-app']['env-entry'] !== undefined) {
+            sourceConfig['web-app']['env-entry'].forEach(entry => {
+                const val = WebXmlReader.getEnvEntryValue(entry);
+                parsedConfig[val.name] = val.value;
+            });
+        }
+        return parsedConfig;
+    }
+    static getEnvEntryValue(entry) {
+        if (entry['env-entry-type'] === undefined) {
+            throw new Error("env-entry-type missing, incorrect entry " + JSON.stringify(entry));
+        }
+        if (entry['env-entry-name'] === undefined) {
+            throw new Error("env-entry-name missing, incorrect entry " + JSON.stringify(entry));
+        }
+
+        const type = entry['env-entry-type'].toString().trim();
+        const name = entry['env-entry-name'].toString().trim();
+        const rawValue = entry['env-entry-value'] !== undefined ? entry['env-entry-value'].toString().trim() : null;
+        if (type.length === 0) {
+            throw new Error("env-entry-type zero length, incorrect entry " + JSON.stringify(entry));
+        }
+        if (name.length === 0) {
+            throw new Error("env-entry-name missing, incorrect entry " + JSON.stringify(entry));
+        }
+        let value = null;
+        if (rawValue !== null) {
+            switch (type) {
+                case 'java.lang.String':
+                    value = rawValue;
+                    break;
+                case 'java.lang.Boolean':
+                    if (['true', 'false'].indexOf(rawValue) === -1) {
+                        throw new Error(`env-entry-value = ${rawValue} for type env-entry-type = Boolean isn't defined` + +JSON.stringify(entry));
+                    }
+                    value = rawValue === 'true' ? true : false;
+                    break;
+                case 'java.lang.Integer':
+                case 'java.lang.Float':
+                    value = Number(rawValue);
+                    break;
+                default:
+                    throw new Error(`env-entry-type = ${type} unsupported` + +JSON.stringify(entry));
+                    break;
+            }
+        }
+        return {name, value};
+
     }
 
-    getValues() {
+    async getValues() {
         if (this.values === null) {
             this.values = WebXmlReader.parse(this.src);
         }
