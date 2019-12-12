@@ -1,4 +1,5 @@
 import WebXmlReader from './WebXmlReader';
+import ContextXmlReader from './ContextXmlReader';
 
 class ContextSupport {
 
@@ -20,7 +21,21 @@ class ContextSupport {
             const wxr = new WebXmlReader(webxml);
             Object.assign(context, wxr.getValues());
         }
+        if (this.contextXmlPath && fs.existsSync(this.contextXmlPath)) {
+            const contextXml = fs.readFileSync(this.contextXmlPath, 'utf8');
+            const cxr = new ContextXmlReader(contextXml);
+            ContextSupport.assignExisting(context, cxr.getValues());
+        }
+
         return context;
+    }
+
+    static assignExisting(target, source) {
+        for (var prop in source) {
+            if (source.hasOwnProperty(prop) && target.hasOwnProperty(prop)) {
+                target[prop] = source[prop];
+            }
+        }
     }
 
 }
