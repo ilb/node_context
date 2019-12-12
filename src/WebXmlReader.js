@@ -1,4 +1,5 @@
 import PropertyReader from './PropertyReader';
+import ValueParser from './ValueParser';
 
 class WebXmlReader extends PropertyReader {
     constructor(src) {
@@ -41,27 +42,7 @@ class WebXmlReader extends PropertyReader {
         if (name.length === 0) {
             throw new Error("env-entry-name missing, incorrect entry " + JSON.stringify(entry));
         }
-        let value = null;
-        if (rawValue !== null) {
-            switch (type) {
-                case 'java.lang.String':
-                    value = rawValue;
-                    break;
-                case 'java.lang.Boolean':
-                    if (['true', 'false'].indexOf(rawValue) === -1) {
-                        throw new Error(`env-entry-value = ${rawValue} for type env-entry-type = Boolean isn't defined` + +JSON.stringify(entry));
-                    }
-                    value = rawValue === 'true' ? true : false;
-                    break;
-                case 'java.lang.Integer':
-                case 'java.lang.Float':
-                    value = Number(rawValue);
-                    break;
-                default:
-                    throw new Error(`env-entry-type = ${type} unsupported` + +JSON.stringify(entry));
-                    break;
-            }
-        }
+        const value = ValueParser.parseValue(type, rawValue);
         return {name, value};
 
     }
