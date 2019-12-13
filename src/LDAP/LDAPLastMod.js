@@ -1,14 +1,7 @@
 export default class LDAPLastMod {
 
-    constructor(ldapConfig) {
-        var LdapClient = require('ldapjs-client');
-        const params = { url: ldapConfig.getUri()[0]};
-        if (ldapConfig.getCaCert()) {
-            const fs = require('fs');
-            params.tlsOptions = [fs.readFileSync(ldapConfig.getCaCert())];
-        }
-
-        this.ldapClient = new LdapClient(params);
+    constructor(ldapClient) {
+        this.ldapClient = ldapClient;
     }
 
     async getLastMod() {
