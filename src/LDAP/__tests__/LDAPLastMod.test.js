@@ -10,6 +10,7 @@ const ldapLastMod = new LDAPLastMod(ldapConfig);
 
 const expected = '123';
 
-test('parseConfig', () => {
-    expect(ldapLastMod.getLastMod()).resolves.toBe(expected);
+test('parseConfig', async () => {
+    const lmdt = await ldapLastMod.getLastMod();
+    expect(isNaN(lmdt.getTime())).toBe(false);
 });
