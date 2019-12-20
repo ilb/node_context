@@ -4,9 +4,9 @@
   "description": "",
   "author": "github@bystrobank.ru",
   "license": "ISC",
-  "main": "lib/context.js",
+  "main": "dist/context.js",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir dist",
     "test": "jest",
     "nbignore": "mkdir -p node_modules && touch node_modules/.nbignore",
     "versionpatch": "npm version patch"
@@ -15,17 +15,16 @@
     "fs": false
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "dependencies": {
-    "ldapjs-client": "^0.1.1",
-    "xml2js-es6-promise": "^1.1.1",
-    "xmldom": "^0.1.27",
-    "xpath": "0.0.27"
+    "@ilb/node_ldap": "^1.0.0",
+    "xml2js-es6-promise": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
     "regenerator-runtime": "^0.13.3"
