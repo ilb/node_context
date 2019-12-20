@@ -13,6 +13,10 @@ const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/b
     "ru.bystrobank.apps.workflow.ws": "https://devel.net.ilb.ru/workflow-web/web",
 };
 
-test('builds context', () => {
+test('builds context', async () => {
     expect(cs.buildContext()).resolves.toStrictEqual(expected);
+    await cs.build();
+
+    expect(process.env["ru.bystrobank.apps.workflow.ws"]).toBe("https://devel.net.ilb.ru/workflow-web/web");
+
 });

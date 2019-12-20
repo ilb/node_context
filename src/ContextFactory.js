@@ -10,7 +10,16 @@ class ContextFactory {
     }
 
     /**
-     * Function populates process.env context with values read from web.xml and context.xml
+     * Method populates process.env
+     * @returns {undefined}pop
+     */
+    async build() {
+        const context = await this.buildContext();
+        Object.assign(process.env, context);
+    }
+
+    /**
+     * Method builds context with values read from web.xml and context.xml
      * context.xml values have higher priority
      * @returns {undefined}
      */
