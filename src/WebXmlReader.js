@@ -1,5 +1,6 @@
 import PropertyReader from './PropertyReader';
 import ValueParser from './ValueParser';
+import xml2js from 'xml2js-es6-promise';
 
 class WebXmlReader extends PropertyReader {
     constructor(src, resourceResolver) {
@@ -12,7 +13,7 @@ class WebXmlReader extends PropertyReader {
         this.resourceResolver = resourceResolver;
     }
     static async parse(src, resourceResolver) {
-        var xml2js = require('xml2js-es6-promise');
+        //var xml2js = require('xml2js-es6-promise');
 
         const config = await xml2js(src);
 
@@ -31,7 +32,7 @@ class WebXmlReader extends PropertyReader {
             for (const resource of config['web-app']['resource-env-ref']) {
 
                 const val = WebXmlReader.getResourceEntryValue(resource);
-                val.value = resourceResolver(val.name);
+                val.value = await resourceResolver(val.name);
                 result[val.name] = val.value;
             }
         }

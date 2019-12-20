@@ -1,5 +1,6 @@
 import WebXmlReader from './WebXmlReader';
 import ContextXmlReader from './ContextXmlReader';
+import LDAPFactory from '@ilb/node_ldap';
 
 class ContextSupport {
 
@@ -14,11 +15,13 @@ class ContextSupport {
      * @returns {undefined}
      */
     async buildContext() {
+        const ldapFactory = new LDAPFactory();
+        const ldapResource = await ldapFactory.getLDAPResource();
         const fs = require('fs');
         const context = {}
         if (this.webXmlPath && fs.existsSync(this.webXmlPath)) {
             const webxml = fs.readFileSync(this.webXmlPath, 'utf8');
-            const wxr = new WebXmlReader(webxml);
+            const wxr = new WebXmlReader(webxml, name => ldapResource.lookup(name));
             const values = await wxr.getValues();
             Object.assign(context, values);
         }
@@ -29,6 +32,8 @@ class ContextSupport {
             const values = await cxr.getValues();
             ContextSupport.assignExisting(context, values);
         }
+
+        ldapFactory.close();
 
         return context;
     }

@@ -1,5 +1,6 @@
 import PropertyReader from './PropertyReader';
 import ValueParser from './ValueParser';
+import xml2js from 'xml2js-es6-promise';
 
 class ContextXmlReader extends PropertyReader {
     constructor(src) {
@@ -9,7 +10,7 @@ class ContextXmlReader extends PropertyReader {
     }
 
     static async parse(src) {
-        var xml2js = require('xml2js-es6-promise');
+        //var xml2js = require('xml2js-es6-promise');
 
         const sourceConfig = await xml2js(src);
         const parsedConfig = {};

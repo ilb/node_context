@@ -10,6 +10,7 @@ const cs = new ContextSupport(webXmlPath,contextXmlPath);
 const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/bailverification",
     "ru.bystrobank.apps.bailverification.db_PASSWORD": null,
     "ru.bystrobank.apps.workflow.cert_PASSWORD": "cert_pass_here",
+    "ru.bystrobank.apps.workflow.ws": "https://devel.net.ilb.ru/workflow-web/web",
 };
 
 test('builds context', () => {
