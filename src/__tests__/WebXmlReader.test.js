@@ -9,7 +9,7 @@ const contextPath = path.resolve('src/__tests__/web.xml');
  * @param {type} name
  * @returns {String}
  */
-const resourceResolver = name => '[[' + name + ']]';
+const resourceResolver = async name => '[[' + name + ']]';
 
 const wxr = new WebXmlReader(fs.readFileSync(contextPath), resourceResolver);
 
