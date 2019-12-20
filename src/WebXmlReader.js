@@ -2,27 +2,40 @@ import PropertyReader from './PropertyReader';
 import ValueParser from './ValueParser';
 
 class WebXmlReader extends PropertyReader {
-    constructor(src) {
+    constructor(src, resourceResolver) {
         super();
         this.src = src;
         this.values = null;
+        if (resourceResolver && typeof (resourceResolver) !== 'function') {
+            throw new Error('resourceResolver should be function');
+        }
+        this.resourceResolver = resourceResolver;
     }
-    static async parse(src) {
+    static async parse(src, resourceResolver) {
         var xml2js = require('xml2js-es6-promise');
 
-        const sourceConfig = await xml2js(src);
+        const config = await xml2js(src);
 
-        if (!sourceConfig['web-app']) {
+        if (!config['web-app']) {
             throw new Error(`web.xml should contain web-app node`);
         }
-        const parsedConfig = {};
-        if (sourceConfig['web-app']['env-entry'] !== undefined) {
-            sourceConfig['web-app']['env-entry'].forEach(entry => {
+        const result = {};
+        if (config['web-app']['env-entry'] !== undefined) {
+            config['web-app']['env-entry'].forEach(entry => {
                 const val = WebXmlReader.getEnvEntryValue(entry);
-                parsedConfig[val.name] = val.value;
+                result[val.name] = val.value;
             });
         }
-        return parsedConfig;
+
+        if (resourceResolver) {
+            for (const resource of config['web-app']['resource-env-ref']) {
+
+                const val = WebXmlReader.getResourceEntryValue(resource);
+                val.value = resourceResolver(val.name);
+                result[val.name] = val.value;
+            }
+        }
+        return result;
     }
     static getEnvEntryValue(entry) {
         if (entry['env-entry-type'] === undefined) {
@@ -42,12 +55,27 @@ class WebXmlReader extends PropertyReader {
             throw new Error("env-entry-name missing, incorrect entry " + JSON.stringify(entry));
         }
         const value = ValueParser.parseValue(type, rawValue);
-        return {name, value};
+        return {type, name, value};
+    }
+    static getResourceEntryValue(resource) {
+        if (resource['resource-env-ref-type'] === undefined) {
+            throw new Error('incorrect resource: resource-env-ref-type required ' + JSON.stringify(resource));
+        }
+        if (resource['resource-env-ref-name'] === undefined) {
+            throw new Error('incorrect resource: resource-env-ref-name required ' + JSON.stringify(resource));
+        }
+        const type = resource['resource-env-ref-type'].toString().trim();
+        const name = resource['resource-env-ref-name'].toString().trim();
+
+        if (name.length === 0) {
+            throw new Error('incorrect resource: resource-env-ref-name empty ' + JSON.stringify(resource));
+        }
+        return {type, name};
     }
 
     async getValues() {
         if (this.values === null) {
-            this.values = WebXmlReader.parse(this.src);
+            this.values = WebXmlReader.parse(this.src, this.resourceResolver);
         }
         return this.values;
     }
