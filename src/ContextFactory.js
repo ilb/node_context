@@ -2,7 +2,7 @@ import WebXmlReader from './WebXmlReader';
 import ContextXmlReader from './ContextXmlReader';
 import LDAPFactory from '@ilb/node_ldap';
 
-class ContextSupport {
+class ContextFactory {
 
     constructor(webXmlPath, contextXmlPath) {
         this.webXmlPath = webXmlPath;
@@ -30,7 +30,7 @@ class ContextSupport {
             const contextXml = fs.readFileSync(this.contextXmlPath, 'utf8');
             const cxr = new ContextXmlReader(contextXml);
             const values = await cxr.getValues();
-            ContextSupport.assignExisting(context, values);
+            ContextFactory.assignExisting(context, values);
         }
 
         ldapFactory.close();
@@ -48,4 +48,4 @@ class ContextSupport {
 
 }
 
-export default ContextSupport;
+export default ContextFactory;

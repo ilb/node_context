@@ -1,12 +1,12 @@
 @startuml
-User -> ContextSuport: buildContext()
-ContextSuport -> ContextXmlReader: getValues()
-ContextXmlReader -> ContextSuport: return object of context.xml records
+User -> ContextFactory: buildContext()
+ContextFactory -> ContextXmlReader: getValues()
+ContextXmlReader -> ContextFactory: return object of context.xml records
 
-ContextSuport -> WebXmlReader: getValues()
+ContextFactory -> WebXmlReader: getValues()
 WebXmlReader -> LdapResolver: resolve()
 LdapResolver -> WebXmlReader: return resource value from ldap
-WebXmlReader -> ContextSuport: return object of web.xml records
+WebXmlReader -> ContextFactory: return object of web.xml records
 
-ContextSuport -> ContextSuport: putEnv()
+ContextFactory -> ContextFactory: putEnv()
 @enduml
