@@ -1,11 +1,11 @@
-import ContextSupport from '../ContextSupport';
+import ContextFactory from '../ContextFactory';
 import * as path from 'path';
 
 const fs = require('fs');
 const webXmlPath = path.resolve('src/__tests__/web.xml');
 const contextXmlPath = path.resolve('src/__tests__/context.xml');
 
-const cs = new ContextSupport(webXmlPath,contextXmlPath);
+const cs = new ContextFactory(webXmlPath,contextXmlPath);
 
 const expected = {"ru.bystrobank.apps.bailverification.db": "mysql://localhost/bailverification",
     "ru.bystrobank.apps.bailverification.db_PASSWORD": null,
