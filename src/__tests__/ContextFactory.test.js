@@ -19,7 +19,4 @@ test('builds context', async () => {
 
     expect(process.env["ru.bystrobank.apps.workflow.ws"]).toBe("https://devel.net.ilb.ru/workflow-web/web");
 
-    // TEMP LEGACY EMULATION
-    ContextFactory.config();
-
 });
