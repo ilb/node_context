@@ -5,8 +5,9 @@ import LDAPFactory from '@ilb/node_ldap';
 class ContextFactory {
 
     constructor(webXmlPath, contextXmlPath) {
-        this.webXmlPath = webXmlPath;
-        this.contextXmlPath = contextXmlPath;
+        const path = require('path');
+        this.webXmlPath = webXmlPath ? webXmlPath : path.resolve(process.cwd(), 'conf/web.xml');;
+        this.contextXmlPath = contextXmlPath ? contextXmlPath : path.resolve(path.join(process.env.HOME, '.config/context.xml'));
     }
 
     /**
