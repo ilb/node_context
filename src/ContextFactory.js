@@ -1,7 +1,6 @@
 import WebXmlReader from './WebXmlReader';
 import ContextXmlReader from './ContextXmlReader';
 import LDAPFactory from '@ilb/node_ldap';
-import context from './context';
 
 class ContextFactory {
 
@@ -11,21 +10,13 @@ class ContextFactory {
     }
 
     /**
-     * TEMP LEGACY EMULATION
-     * @param {type} params
-     * @returns {unresolved}
-     */
-    static config(params) {
-        return context.config(params);
-    }
-
-    /**
      * Method populates process.env
      * @returns {undefined}pop
      */
     async build() {
         const context = await this.buildContext();
         Object.assign(process.env, context);
+        return context;
     }
 
     /**
