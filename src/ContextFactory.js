@@ -1,12 +1,22 @@
 import WebXmlReader from './WebXmlReader';
 import ContextXmlReader from './ContextXmlReader';
 import LDAPFactory from '@ilb/node_ldap';
+import context from './context';
 
 class ContextFactory {
 
     constructor(webXmlPath, contextXmlPath) {
         this.webXmlPath = webXmlPath;
         this.contextXmlPath = contextXmlPath;
+    }
+
+    /**
+     * TEMP LEGACY EMULATION
+     * @param {type} params
+     * @returns {unresolved}
+     */
+    static config(params) {
+        return context.config(params);
     }
 
     /**
