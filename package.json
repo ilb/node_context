@@ -1,6 +1,6 @@
 {
   "name": "@ilb/node_context",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "author": "github@bystrobank.ru",
   "license": "ISC",
@@ -18,7 +18,7 @@
     "dist"
   ],
   "dependencies": {
-    "@ilb/node_ldap": "^1.0.3",
+    "@ilb/node_ldap": "^1.0.4",
     "xml2js-es6-promise": "^1.1.1"
   },
   "devDependencies": {
