@@ -18,15 +18,16 @@
     "dist"
   ],
   "dependencies": {
-    "@ilb/node_ldap": "^1.0.6",
+    "@ilb/node_ldap": "^1.0.7",
     "xml2js-es6-promise": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-transform-runtime": "^7.7.6",
-    "@babel/preset-env": "^7.7.7",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
-    "regenerator-runtime": "^0.13.3"
+    "regenerator-runtime": "^0.13.5"
   }
 }
