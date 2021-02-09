@@ -11,7 +11,7 @@ class ValueParser {
                     if (['true', 'false'].indexOf(rawValue) === -1) {
                         throw new Error(`value = ${rawValue} for Boolean invalid`);
                     }
-                    value = rawValue === 'true' ? true : false;
+                    value = rawValue === 'true';
                     break;
                 case 'java.lang.Integer':
                 case 'java.lang.Float':
@@ -19,7 +19,6 @@ class ValueParser {
                     break;
                 default:
                     throw new Error(`Type ${type} unsupported. Suppported types: java.lang.String, java.lang.Boolean, java.lang.Integer, java.lang.Float`);
-                    break;
             }
         }
         return value;

@@ -1,7 +1,7 @@
 import ContextXmlReader from '../ContextXmlReader';
 import * as path from 'path';
+import * as fs from 'fs';
 
-const fs = require('fs');
 const contextPath = path.resolve('src/__tests__/context.xml');
 const cxr = new ContextXmlReader(fs.readFileSync(contextPath));
 

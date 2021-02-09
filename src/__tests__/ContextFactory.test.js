@@ -1,7 +1,6 @@
 import ContextFactory from '../ContextFactory';
 import * as path from 'path';
 
-const fs = require('fs');
 const webXmlPath = path.resolve('src/__tests__/web.xml');
 const contextXmlPath = path.resolve('src/__tests__/context.xml');
 

@@ -1,3 +1,5 @@
+import * as path from 'path';
+import * as fs from 'fs';
 import WebXmlReader from './WebXmlReader';
 import ContextXmlReader from './ContextXmlReader';
 import LDAPFactory from '@ilb/node_ldap';
@@ -5,8 +7,7 @@ import LDAPFactory from '@ilb/node_ldap';
 class ContextFactory {
 
     constructor(webXmlPath, contextXmlPath) {
-        const path = require('path');
-        this.webXmlPath = webXmlPath ? webXmlPath : path.resolve(process.cwd(), 'conf/web.xml');;
+        this.webXmlPath = webXmlPath ? webXmlPath : path.resolve(process.cwd(), 'conf/web.xml');
         this.contextXmlPath = contextXmlPath ? contextXmlPath : path.resolve(path.join(process.env.HOME, '.config/context.xml'));
     }
 
@@ -28,7 +29,6 @@ class ContextFactory {
     async buildContext() {
         const ldapFactory = new LDAPFactory();
         const ldapResource = await ldapFactory.getLDAPResource();
-        const fs = require('fs');
         const context = {}
         if (this.webXmlPath && fs.existsSync(this.webXmlPath)) {
             const webxml = fs.readFileSync(this.webXmlPath, 'utf8');

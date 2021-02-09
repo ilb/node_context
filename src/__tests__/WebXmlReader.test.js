@@ -1,7 +1,7 @@
 import WebXmlReader from '../WebXmlReader';
+import * as fs from 'fs';
 import * as path from 'path';
 
-const fs = require('fs');
 const contextPath = path.resolve('src/__tests__/web.xml');
 
 /**
