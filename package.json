@@ -1,12 +1,12 @@
 {
   "name": "@ilb/node_context",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "author": "github@bystrobank.ru",
   "license": "ISC",
-  "main": "dist/ContextFactory.js",
+  "type": "module",
+  "main": "src/ContextFactory.js",
   "scripts": {
-    "build": "babel src --out-dir dist",
     "test": "jest",
     "nbignore": "mkdir -p node_modules && touch node_modules/.nbignore",
     "versionpatch": "npm version patch"
@@ -15,10 +15,10 @@
     "fs": false
   },
   "files": [
-    "dist"
+    "src"
   ],
   "dependencies": {
-    "@ilb/node_ldap": "^1.0.7",
+    "@ilb/node_ldap": "^1.0.8",
     "xml2js-es6-promise": "^1.1.1"
   },
   "devDependencies": {
