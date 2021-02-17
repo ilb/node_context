@@ -7,9 +7,7 @@
   "type": "module",
   "main": "src/ContextFactory.js",
   "scripts": {
-    "test": "jest",
-    "nbignore": "mkdir -p node_modules && touch node_modules/.nbignore",
-    "versionpatch": "npm version patch"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
   },
   "browser": {
     "fs": false
@@ -18,16 +16,15 @@
     "src"
   ],
   "dependencies": {
-    "@ilb/node_ldap": "^1.0.9",
+    "@ilb/node_ldap": "^1.0.11",
     "xml2js-es6-promise": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.10.5",
-    "@babel/plugin-transform-runtime": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "babel-jest": "^24.9.0",
-    "jest": "^24.9.0",
-    "regenerator-runtime": "^0.13.5"
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-prettier": "^3.3.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1"
   }
 }

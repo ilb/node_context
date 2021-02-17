@@ -1,8 +1,8 @@
-import WebXmlReader from '../WebXmlReader';
+import WebXmlReader from '../src/WebXmlReader';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const contextPath = path.resolve('src/__tests__/web.xml');
+const contextPath = path.resolve('test/web.xml');
 
 /**
  * test resolver
