@@ -9,6 +9,7 @@ const expected = {
   'ru.bystrobank.apps.workflow.certfile': '/certs/application.pem',
   'ru.bystrobank.apps.workflow.cert_PASSWORD': 'cert_pass_here'
 };
-test('parses context.xml', () => {
-  expect(cxr.getValues()).resolves.toStrictEqual(expected);
+test('parses context.xml', async () => {
+  const values = await cxr.getValues();
+  expect(values).toStrictEqual(expected);
 });
