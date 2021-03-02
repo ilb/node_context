@@ -6,12 +6,14 @@ const webXmlPath = path.resolve('test/web.xml');
 const contextXmlPath = path.resolve('test/context.xml');
 const ldapFactory = new LDAPFactory('test/ldap.conf');
 
+process.env.LDAPPREFIX = 'ru.bystrobank';
 const contextFactory = new ContextFactory({ webXmlPath, contextXmlPath, ldapFactory });
 
 const expected = {
-  'ru.bystrobank.apps.bailverification.db': 'mysql://localhost/bailverification',
-  'ru.bystrobank.apps.bailverification.db_PASSWORD': null,
-  'ru.bystrobank.apps.workflow.cert_PASSWORD': 'cert_pass_here',
+  '.apps.testapp.db': 'mysql://localhost/testapp',
+  'apps.testapp.db_PASSWORD': null,
+  'apps.testapp.certfile': '/etc/certs/testapp.pem',
+  'apps.testapp.cert_PASSWORD': 'cert_pass_here',
   'ru.bystrobank.apps.workflow.ws': 'https://devel.net.ilb.ru/workflow-web/web'
 };
 

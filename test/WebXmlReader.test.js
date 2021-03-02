@@ -14,9 +14,10 @@ const resourceResolver = async (name) => '[[' + name + ']]';
 const wxr = new WebXmlReader(fs.readFileSync(contextPath), resourceResolver);
 
 const expected = {
-  'ru.bystrobank.apps.bailverification.db': 'mysql://localhost/bailverification',
-  'ru.bystrobank.apps.bailverification.db_PASSWORD': null,
-  'ru.bystrobank.apps.workflow.cert_PASSWORD': null,
+  '.apps.testapp.db': 'mysql://localhost/testapp',
+  'apps.testapp.db_PASSWORD': null,
+  'apps.testapp.certfile': '/etc/certs/testapp.pem',
+  'apps.testapp.cert_PASSWORD': null,
   'ru.bystrobank.apps.workflow.ws': '[[ru.bystrobank.apps.workflow.ws]]'
 };
 

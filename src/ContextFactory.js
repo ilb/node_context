@@ -30,10 +30,22 @@ class ContextFactory {
   async buildContext() {
     const ldapResource = await this.ldapFactory.getLDAPResource();
     const context = {};
+    const ldapPrefix = process.env.LDAPPREFIX || '';
+
+    async function resourceResolver(name) {
+      if (ldapPrefix && name.startsWith('.')) {
+        name = ldapPrefix + name;
+      }
+      const value = await ldapResource.lookup(name);
+      // console.log({ name, value });
+      return value;
+    }
+
     if (this.webXmlPath && fs.existsSync(this.webXmlPath)) {
       const webxml = fs.readFileSync(this.webXmlPath, 'utf8');
-      const wxr = new WebXmlReader(webxml, (name) => ldapResource.lookup(name));
+      const wxr = new WebXmlReader(webxml, resourceResolver);
       const values = await wxr.getValues();
+      // console.log({ values });
       Object.assign(context, values);
     }
 
