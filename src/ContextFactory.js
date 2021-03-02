@@ -21,15 +21,11 @@ class ContextFactory {
     Object.assign(process.env, context);
     return context;
   }
-
-  /**
-   * Method builds context with values read from web.xml and context.xml
-   * context.xml values have higher priority
-   * @returns {undefined}
-   */
-  async buildContext() {
+  async getResourceResolver() {
+    if (!this.ldapFactory.isConfigured()) {
+      return () => '!LDAP not configured!';
+    }
     const ldapResource = await this.ldapFactory.getLDAPResource();
-    const context = {};
     const ldapPrefix = process.env.LDAPPREFIX || '';
 
     async function resourceResolver(name) {
@@ -40,6 +36,18 @@ class ContextFactory {
       // console.log({ name, value });
       return value;
     }
+
+    return resourceResolver;
+  }
+
+  /**
+   * Method builds context with values read from web.xml and context.xml
+   * context.xml values have higher priority
+   * @returns {undefined}
+   */
+  async buildContext() {
+    const context = {};
+    const resourceResolver = await this.getResourceResolver();
 
     if (this.webXmlPath && fs.existsSync(this.webXmlPath)) {
       const webxml = fs.readFileSync(this.webXmlPath, 'utf8');
